@@ -1,4 +1,11 @@
 [workspace]
 members = [
     "day_01",
+    "day_02",
 ]
+
+[workspace.package]
+authors = ["Martijn Gribnau <garm@ilumeo.com>"]
+version = "0.0.0"
+edition = "2021"
+repository = "https://github.com/foresterre/advent-of-code-2022"
