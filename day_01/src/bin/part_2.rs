@@ -6,7 +6,7 @@ fn main() {
     let top_3 = input
         .split("\n\n")
         .map(|elf| {
-            elf.split_ascii_whitespace()
+            elf.lines()
                 .map(|calories| calories.parse::<usize>().unwrap())
                 .sum::<usize>()
         })
