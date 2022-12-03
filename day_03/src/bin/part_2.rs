@@ -6,13 +6,7 @@ fn main() {
 
     let sum_of_priorities = lines
         .chunks(3)
-        .map(|chunks| {
-            intersect([
-                chunks[0].iter().copied(),
-                chunks[1].iter().copied(),
-                chunks[2].iter().copied(),
-            ])
-        })
+        .map(|chunks| intersect(chunks.iter().map(|chunk| chunk.iter().copied())))
         .map(priority) // map to priorities
         .sum::<u32>();
 
