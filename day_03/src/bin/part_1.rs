@@ -6,8 +6,8 @@ fn main() {
     let sum_of_priorities = input
         .split(|&byte| byte == b'\n')
         .map(|line| line.split_at(line.len() / 2)) // split into equally sized compartments
-        .map(|(l, r)| intersect([l.iter().cloned(), r.iter().cloned()])) // find the intersection of the compartments
-        .map(|item| priority(item)) // map to priorities
+        .map(|(l, r)| intersect([l.iter().copied(), r.iter().copied()])) // find the intersection of the compartments
+        .map(priority) // map to priorities
         .sum::<u32>();
 
     println!("{}", sum_of_priorities);

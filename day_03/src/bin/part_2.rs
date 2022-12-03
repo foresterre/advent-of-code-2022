@@ -7,13 +7,13 @@ fn main() {
     let sum_of_priorities = lines
         .chunks(3)
         .map(|chunks| {
-            let a = chunks[0];
-            let b = chunks[1];
-            let c = chunks[2];
-
-            intersect([a.iter().cloned(), b.iter().cloned(), c.iter().cloned()])
+            intersect([
+                chunks[0].iter().copied(),
+                chunks[1].iter().copied(),
+                chunks[2].iter().copied(),
+            ])
         })
-        .map(|item| priority(item)) // map to priorities
+        .map(priority) // map to priorities
         .sum::<u32>();
 
     println!("{}", sum_of_priorities);
