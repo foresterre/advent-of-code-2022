@@ -17,21 +17,20 @@ impl Move {
                 Self::Rock => Self::Paper,
                 Self::Paper => Self::Scissors,
                 Self::Scissors => Self::Rock,
-            }
+            },
             Instruction::Draw => *self,
             Instruction::Lose => match self {
                 Self::Rock => Self::Scissors,
                 Self::Paper => Self::Rock,
                 Self::Scissors => Self::Paper,
-            }
+            },
         }
-
     }
 
     pub fn points(&self) -> u32 {
         match self {
             Self::Rock => 1,
-            Self::Paper =>  2,
+            Self::Paper => 2,
             Self::Scissors => 3,
         }
     }
@@ -45,7 +44,11 @@ impl FromStr for Move {
             "A" | "X" => Move::Rock,
             "B" | "Y" => Move::Paper,
             "C" | "Z" => Move::Scissors,
-            unknown => return Err(Error::ParseMove { input: unknown.to_owned() })
+            unknown => {
+                return Err(Error::ParseMove {
+                    input: unknown.to_owned(),
+                })
+            }
         })
     }
 }
@@ -58,10 +61,7 @@ pub struct Game {
 
 impl Game {
     pub fn new(you: Move, opponent: Move) -> Self {
-        Self {
-            you,
-            opponent,
-        }
+        Self { you, opponent }
     }
 
     /// Determines the winner of the game.
@@ -74,13 +74,13 @@ impl Game {
         match (self.you, self.opponent) {
             (Move::Rock, Move::Rock) => Winner::Draw,
             (Move::Rock, Move::Scissors) => Winner::You,
-            (Move::Rock, Move::Paper) => Winner::Opponent ,
-            (Move::Paper, Move::Rock) => Winner::You ,
-            (Move::Paper, Move::Paper) => Winner::Draw ,
-            (Move::Paper, Move::Scissors) => Winner::Opponent ,
-            (Move::Scissors, Move::Rock) => Winner::Opponent ,
-            (Move::Scissors, Move::Paper) => Winner::You ,
-            (Move::Scissors, Move::Scissors) => Winner::Draw ,
+            (Move::Rock, Move::Paper) => Winner::Opponent,
+            (Move::Paper, Move::Rock) => Winner::You,
+            (Move::Paper, Move::Paper) => Winner::Draw,
+            (Move::Paper, Move::Scissors) => Winner::Opponent,
+            (Move::Scissors, Move::Rock) => Winner::Opponent,
+            (Move::Scissors, Move::Paper) => Winner::You,
+            (Move::Scissors, Move::Scissors) => Winner::Draw,
         }
     }
 
@@ -107,7 +107,7 @@ impl Winner {
         match self {
             Self::You => 6,
             Self::Draw => 3,
-            Self::Opponent =>  0,
+            Self::Opponent => 0,
         }
     }
 }
@@ -123,19 +123,15 @@ impl<'games> Tournament<'games> {
 
     /// Returns scores for `(me, opponent)`.
     pub fn my_score(&self) -> u32 {
-        self.games
-            .iter()
-            .map(|g| g.my_score())
-            .sum()
+        self.games.iter().map(|g| g.my_score()).sum()
     }
-
 }
 
 #[derive(Copy, Clone, Debug)]
 pub enum Instruction {
     Lose, // X
     Draw, // Y
-    Win, // Z
+    Win,  // Z
 }
 
 impl FromStr for Instruction {
@@ -146,7 +142,11 @@ impl FromStr for Instruction {
             "X" => Self::Lose,
             "Y" => Self::Draw,
             "Z" => Self::Win,
-            unknown => return Err(Error::ParseInstruction{input: unknown.to_owned()}),
+            unknown => {
+                return Err(Error::ParseInstruction {
+                    input: unknown.to_owned(),
+                })
+            }
         })
     }
 }
@@ -154,17 +154,11 @@ impl FromStr for Instruction {
 #[derive(Clone, Debug, thiserror::Error)]
 pub enum Error {
     #[error("Could not parse '{line}': invalid game specification")]
-    ParseGame {
-        line: String,
-    },
+    ParseGame { line: String },
 
     #[error("Could not parse '{input}': move not recognized")]
-    ParseMove {
-        input: String,
-    },
+    ParseMove { input: String },
 
     #[error("Could not parse '{input}': instruction not recognized")]
-    ParseInstruction {
-        input: String,
-    }
+    ParseInstruction { input: String },
 }
