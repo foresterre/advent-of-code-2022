@@ -3,6 +3,12 @@
 version = 3
 
 [[package]]
+name = "camino"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "88ad0e1e3e88dd237a156ab9f571021b8a158caa0ae44b1968a241efb5144c1e"
+
+[[package]]
 name = "day_01"
 version = "0.0.0"
 
@@ -28,6 +34,13 @@ version = "0.0.0"
 [[package]]
 name = "day_06"
 version = "0.0.0"
+
+[[package]]
+name = "day_07"
+version = "0.0.0"
+dependencies = [
+ "camino",
+]
 
 [[package]]
 name = "proc-macro2"
