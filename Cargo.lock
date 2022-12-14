@@ -95,6 +95,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "day_08"
+version = "0.0.0"
+dependencies = [
+ "vectrix",
+]
+
+[[package]]
 name = "day_13"
 version = "0.0.0"
 dependencies = [
@@ -153,6 +160,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "stride"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "66fbe380626ec180138f45d13b4afa4e458ab14ea199a603649f3d84a75ac254"
+
+[[package]]
 name = "syn"
 version = "1.0.105"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -197,6 +210,27 @@ name = "unicode-ident"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6ceab39d59e4c9499d4e5a8ee0e2735b891bb7308ac83dfb4e80cad195c9f6f3"
+
+[[package]]
+name = "vectrix"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "51d9e707a5ed909857023c308801cfa43c0795337699d180e9914d82d856fed6"
+dependencies = [
+ "stride",
+ "vectrix-macro",
+]
+
+[[package]]
+name = "vectrix-macro"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "961b790783162926255834ddd57ccb307006cbcf99efc8d3545e018234bf8bf5"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
 
 [[package]]
 name = "wasi"
