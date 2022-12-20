@@ -14,16 +14,21 @@ fn main() {
 
             Ok((p.parse(l)?, p.parse(r)?))
         })
-        .collect::<Result<Vec<(Expr, Expr)>, Vec<chumsky::error::Simple<char>>>>();
+        .collect::<Result<Vec<(Expr, Expr)>, Vec<Simple<char>>>>();
 
-    match parsed {
-        Ok(ok) => ok.iter().for_each(|(l, r)| {
-            println!("{:?}\n{:?}\n", l, r);
-        }),
-        Err(err) => err.iter().for_each(|err| {
-            eprintln!("{}", err);
-        }),
-    }
+    let packets = match parsed {
+        Ok(ok) => ok,
+        Err(err) => return err.iter().for_each(|err| eprintln!("{}", err)),
+    };
+
+    let answer = packets
+        .iter()
+        .enumerate()
+        .filter(|(_, (l, r))| l.cmp(r) == Ordering::Less)
+        .map(|(i, _)| i + 1)
+        .sum::<usize>();
+
+    println!("{}", answer);
 }
 
 #[derive(Clone, Debug, Eq)]
